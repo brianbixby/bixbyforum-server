@@ -57,18 +57,20 @@ app.get('/api/db/users/:username', (req,res) => {
 // UPDATE
 app.put('/api/db/users/:username', (req,res) => {
   if(req.body.email) {
-    client.query(`UPDATE users SET first_name=$1, last_name=$2, email=$3, username=$4, interests=$5, gravatar_hash=$6 WHERE username=$7;`,
-    [req.body.first_name, req.body.last_name, req.body.email, req.body.username, req.body.interests, req.body.gravatar_hash, req.params.username])
+    client.query(`UPDATE users SET first_name=$1, last_name=$2, email=$3, user_name=$4, interests=$5, profile_picture=$6 WHERE user_name=$7;`,
+    [req.body.first_name, req.body.last_name, req.body.email, req.body.user_name, req.body.interests, req.body.profile_picture, req.params.username])
     .then(() => {
-    let user = {username: req.body.username, gravatar_hash: req.body.gravatar_hash}; 
+    let user = {user_name: req.body.user_name, profile_picture: req.body.profile_picture}; 
+    console.log(user);
     res.send(user);
   })
 }
   else {
-    client.query(`UPDATE users SET first_name=$1, last_name=$2, username=$3, interests=$4, gravatar_hash=$5 WHERE username=$6;`,
-    [req.body.first_name, req.body.last_name, req.body.username, req.body.interests, req.body.gravatar_hash, req.params.username])
+    client.query(`UPDATE users SET first_name=$1, last_name=$2, user_name=$3, interests=$4, profile_picture=$5 WHERE user_name=$6;`,
+    [req.body.first_name, req.body.last_name, req.body.user_name, req.body.interests, req.body.profile_picture, req.params.username])
     .then(() => {
-      let user = {username: req.body.username, gravatar_hash: req.body.gravatar_hash}; 
+      let user = {user_name: req.body.user_name, profile_picture: req.body.profile_picture}; 
+      console.log(user);
       res.send(user);
     })
   }
